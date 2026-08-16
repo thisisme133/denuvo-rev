@@ -1,36 +1,50 @@
-```
-# Binary dumps and artifacts
-*.bin
-*.out
+```gitignore
+# Compiled Python files
+*.pyc
+__pycache__/
 
-# Logs and temp files
-*.log
-*.tmp
-
-# Environment
+# Virtual environments
+venv/
+.venv/
 .env
 .env.local
 *.env.*
 
-# Editors
-.vscode/
-.idea/
+# Logs
+*.log
 
-# Coverage and testing
+# Temporary files
+*.tmp
+*.swp
+
+# Coverage reports
 .coverage
 coverage/
 htmlcov/
 
-# Dependencies
-node_modules/
-.venv/
-venv/
-__pycache__/
-.mypy_cache/
-.pytest_cache/
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
 
 # Build artifacts
 dist/
 build/
 target/
+*.out
+*.exe
+*.dll
+*.so
+*.a
+
+# Dependencies
+node_modules/
+.mypy_cache/
+.pytest_cache/
+.gradle/
 ```
