@@ -1,42 +1,36 @@
 ```
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-.venv/
-.ENV
-.env
-.env.local
-.env.*
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
+# Binary dumps and artifacts
+*.bin
+*.out
+
+# Logs and temp files
 *.log
 *.tmp
-*.swp
-*~
-.DS_Store
-Thumbs.db
 
-# Build artifacts
-build/
-dist/
-*.egg-info/
+# Environment
+.env
+.env.local
+*.env.*
 
-# IDE
+# Editors
 .vscode/
 .idea/
 
-# Analysis reports
-*.json
+# Coverage and testing
+.coverage
+coverage/
+htmlcov/
+
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+
+# Build artifacts
+dist/
+build/
+target/
 ```

@@ -1,0 +1,77 @@
+{
+  "pe_info": {
+    "image_base": "0x3b400000",
+    "entry_point": "0x1100",
+    "subsystem": 3
+  },
+  "sections": [
+    {
+      "name": ".text",
+      "va": "0x1000",
+      "virtual_size": 28672,
+      "raw_size": 28672
+    },
+    {
+      "name": ".data",
+      "va": "0x8000",
+      "virtual_size": 86016,
+      "raw_size": 86016
+    },
+    {
+      "name": ".pdata",
+      "va": "0x1d000",
+      "virtual_size": 24,
+      "raw_size": 512
+    },
+    {
+      "name": ".xdata",
+      "va": "0x1e000",
+      "virtual_size": 16,
+      "raw_size": 512
+    },
+    {
+      "name": ".edata",
+      "va": "0x1f000",
+      "virtual_size": 74,
+      "raw_size": 512
+    },
+    {
+      "name": ".idata",
+      "va": "0x20000",
+      "virtual_size": 112,
+      "raw_size": 512
+    },
+    {
+      "name": ".lfY",
+      "va": "0x21000",
+      "virtual_size": 4082448,
+      "raw_size": 4082688
+    },
+    {
+      "name": ".reloc",
+      "va": "0x406000",
+      "virtual_size": 172,
+      "raw_size": 512
+    }
+  ],
+  "exports": [
+    {
+      "name": "CreateInterface",
+      "rva": "0x1000"
+    }
+  ],
+  "imports": [
+    {
+      "dll": "KERNEL32.dll",
+      "functions": [
+        "VirtualProtect"
+      ]
+    }
+  ],
+  "analysis": {
+    "obfuscation_type": "stack-based junk code with control flow flattening",
+    "key_api": "VirtualProtect (unique import)",
+    "entry_flow": "CreateInterface -> 0x102fd0 -> multiple decode/dispatch layers",
+    "recommendation": "Use Unicorn emulation + memory dump to extract decrypted payload"
+  }
+}

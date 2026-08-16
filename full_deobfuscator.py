@@ -129,14 +129,29 @@ class DenuvoUnpacker:
         mu = self.create_unicorn()
         
         # Add hooks
-        mu.hook_add(unicorn.UC_HOOK_MEM_INVALID, lambda u, a, b, c, d: False)
-        mu.hook_add(unicorn.UC_HOOK_CODE, self.trace_instruction)
+        mu.hook_add(UC_HOOK_MEM_INVALID, lambda u, a, b, c, d: False)
+        mu.hook_add(UC_HOOK_CODE, self.trace_instruction)
         
-        # Hook VirtualProtect calls
-        if self.virtual_protect_addr:
-            # We need to hook the actual VirtualProtect implementation
-            # For now, we'll intercept calls to it
-            print(f"[*] Setting up VirtualProtect interception...")
+        # Hook VirtualProtect - intercept calls to the IAT entry
+        def hook_code(mu, address, size, user_data):
+            # Check if we're about to call VirtualProtect through IAT
+            if size >= 2:
+                try:
+                    code = mu.mem_read(address, size)
+                    # call [rip+offset] or call qword ptr [address]
+                    if code[0] == 0xff and (code[1] & 0x38) == 0x10:  # call [reg]
+                        # Get the target address from memory
+                        pass
+                except:
+                    pass
+            
+            # Check if RIP is at VirtualProtect IAT entry
+            if address == self.virtual_protect_addr or address in self.protections:
+                return self.hook_virtual_protect(mu, user_data)
+            
+            return True
+        
+        mu.hook_add(UC_HOOK_CODE, hook_code)
         
         # Set RIP to entry point
         entry_addr = self.image_base + self.entry_point
@@ -154,13 +169,13 @@ class DenuvoUnpacker:
         mu.reg_write(UC_X86_REG_RDX, 0)  # fdwReason
         mu.reg_write(UC_X86_REG_R8, 0)   # lpvReserved
         
-        print(f"\n[*] Starting emulation at 0x{entry_point:x}")
+        print(f"\n[*] Starting emulation at 0x{entry_addr:x}")
         print(f"[*] Will execute up to {max_instructions} instructions")
         
         try:
             mu.emu_start(entry_addr, 0, count=max_instructions)
             print("[+] Emulation completed successfully")
-        except UcError as e:
+        except Exception as e:
             print(f"[-] Emulation stopped: {e}")
         
         # Dump memory regions that were made executable

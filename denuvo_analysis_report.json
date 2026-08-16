@@ -1,0 +1,76 @@
+{
+  "pe_info": {
+    "image_base": "0x3b400000",
+    "entry_point": "0x1100"
+  },
+  "exports": {
+    "CreateInterface": "0x1000"
+  },
+  "imports": [
+    {
+      "dll": "KERNEL32.dll",
+      "functions": [
+        "VirtualProtect"
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": ".text",
+      "virtual_address": "0x1000",
+      "virtual_size": 28672,
+      "raw_size": 28672,
+      "characteristics": "0x60000020"
+    },
+    {
+      "name": ".data",
+      "virtual_address": "0x8000",
+      "virtual_size": 86016,
+      "raw_size": 86016,
+      "characteristics": "0xc0000040"
+    },
+    {
+      "name": ".pdata",
+      "virtual_address": "0x1d000",
+      "virtual_size": 24,
+      "raw_size": 512,
+      "characteristics": "0x40000040"
+    },
+    {
+      "name": ".xdata",
+      "virtual_address": "0x1e000",
+      "virtual_size": 16,
+      "raw_size": 512,
+      "characteristics": "0x40000040"
+    },
+    {
+      "name": ".edata",
+      "virtual_address": "0x1f000",
+      "virtual_size": 74,
+      "raw_size": 512,
+      "characteristics": "0x40000040"
+    },
+    {
+      "name": ".idata",
+      "virtual_address": "0x20000",
+      "virtual_size": 112,
+      "raw_size": 512,
+      "characteristics": "0xc0000040"
+    },
+    {
+      "name": ".lfY",
+      "virtual_address": "0x21000",
+      "virtual_size": 4082448,
+      "raw_size": 4082688,
+      "characteristics": "0x68000020"
+    },
+    {
+      "name": ".reloc",
+      "virtual_address": "0x406000",
+      "virtual_size": 172,
+      "raw_size": 512,
+      "characteristics": "0x42000040"
+    }
+  ],
+  "analysis_notes": []
+}
